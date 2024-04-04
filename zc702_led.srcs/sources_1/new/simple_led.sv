@@ -30,12 +30,12 @@ module simple_led #(
 	localparam int C_CNT_WIDTH  = $ceil($clog2(C_CNT_PERIOD +1));
 
 // sync reset
-	reg q_rst = '0; // reset, active-high
+	(* MARK_DEBUG="true" *) reg q_rst = '0; // reset, active-high
 	always @(posedge i_clk)
 		q_rst <= i_rst;
 
 // clock cycles counter
-	reg [C_CNT_WIDTH-1:0] q_cnt = '0;
+	(* MARK_DEBUG="true" *) reg [C_CNT_WIDTH-1:0] q_cnt = '0;
 	always @(posedge i_clk)
 		if (q_rst)
 			q_cnt <= '0;
@@ -43,7 +43,7 @@ module simple_led #(
 			q_cnt <= (q_cnt == 0) ? C_CNT_PERIOD - 1 : q_cnt - 1;
 
 // LED state decode
-	reg q_led = '0;
+	(* MARK_DEBUG="true" *) reg q_led = '0;
 	always @(posedge i_clk)
 		q_led <= (q_cnt < C_CNT_PERIOD / 2) ? 0 : 1;
 
