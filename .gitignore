@@ -24,7 +24,7 @@
 **/*.ods
 **/*.pdf
 **/*.phase
-**/*.png
+# **/*.png
 **/*.pyc
 **/*.svg
 # **/*.txt
