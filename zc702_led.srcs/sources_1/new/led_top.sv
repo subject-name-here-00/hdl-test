@@ -38,11 +38,13 @@ module led_top #(
 			.O  (w_clk_in)  // Buffer output
 		);
 
-// global clock buffer
-	BUFG BUFG_inst (
-			.I (w_clk_in), // 1-bit input: Clock input
-			.O (w_clk_g )  // 1-bit output: Clock output
-		);
+//// global clock buffer
+//	BUFG BUFG_inst (
+//			.I (w_clk_in), // 1-bit input: Clock input
+//			.O (w_clk_g )  // 1-bit output: Clock output
+//		);
+
+	assign w_clk_g = w_clk_in;
 
 // LED control unit
 	simple_led #(

@@ -27,6 +27,18 @@ module tb_simple_led ();
 	localparam     T_CLK = 1e9 / G_CLK_FREQUENCY; // ns
 	localparam     G_REP_NUM = 2; // number of UUT replicas
 
+// S. answers check
+	logic       i_rstn = '0;
+	logic       led_on = '0;
+	logic [3:0] o_led  = '0;
+
+	always #20 i_rstn = ~i_rstn;
+	always #10 led_on = ~led_on;
+
+	always_comb
+		o_led <= '{0 : (~i_rstn | led_on), default : (~i_rstn | ~led_on)};
+
+/*
 // UUT i/o signals
 	logic                             i_clk = '0;
 	logic [G_REP_NUM-1:0]             i_rst = '0; // reset, active-high
@@ -51,5 +63,5 @@ module tb_simple_led ();
 			.i_rst (i_rst), // reset, active-high
 			.o_led (o_led)
 		);
-
+*/
 endmodule : tb_simple_led
