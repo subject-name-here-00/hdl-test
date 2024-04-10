@@ -2,11 +2,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Engineer: Maxim Kuleshov
 // 
-// Create Date: 04/04/2024 08:27:25 AM
-// Module Name: simple_led
-// Target Devices: Xilinx
-// Tool Versions: SV 2012
-// Description: 
+// Create Date: 04/10/2024 07:59:53 PM
+// Module Name: lab2_led_blink
+// Target Devices: zc702
+// Description: blink any number of LEDs w/ a specified repetition period
 // 
 // Dependencies: 
 // 
@@ -16,15 +15,15 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module simple_led #(
-		parameter     G_CLK_FREQUENCY = 200e6, // Hz
-		parameter     G_BLINK_PERIOD  = 1, // s
-		parameter int G_LED_WIDTH     = 4
-	) (
-		input  wire                    i_clk,
-		input  wire                    i_rst, // reset, active-high
-		output logic [G_LED_WIDTH-1:0] o_led
-	);
+module lab2_led_blink #(
+	parameter     G_CLK_FREQUENCY = 200e6, // Hz
+	parameter     G_BLINK_PERIOD  = 1, // s
+	parameter int G_LED_WIDTH     = 4
+) (
+	input  wire                    i_clk,
+	input  wire                    i_rst, // reset, active-high
+	output logic [G_LED_WIDTH-1:0] o_led
+);
 
 	localparam int C_CNT_PERIOD = G_BLINK_PERIOD * G_CLK_FREQUENCY;
 	localparam int C_CNT_WIDTH  = $ceil($clog2(C_CNT_PERIOD +1));
@@ -49,9 +48,9 @@ module simple_led #(
 
 // revert odd/even LEDs polarity
 	integer i;
-	always @*
+	always_comb
 		for (i = 0; i < $size(o_led); i = i + 1)
 			o_led[i] <= q_led ^ (i % 2 == 1);
-//			o_led[i] <= (i % 2 == 1) ? q_led : !q_led;
+//			o_led[i] <= (i % 2 == 1) ? q_led : ~q_led;
 
-endmodule : simple_led
+endmodule : lab2_led_blink

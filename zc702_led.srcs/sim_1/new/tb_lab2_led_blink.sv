@@ -2,11 +2,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Engineer: Maxim Kuleshov
 // 
-// Create Date: 04/04/2024 08:52:41 AM
-// Module Name: tb_simple_led
-// Target Devices: Xilinx
-// Tool Versions: SV 2012
-// Description: 
+// Create Date: 04/10/2024 08:07:16 PM
+// Module Name: lab2_led_blink
+// Target Devices: zc702
+// Description: blink any number of LEDs w/ a specified repetition period
 // 
 // Dependencies: 
 // 
@@ -16,7 +15,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module tb_simple_led ();
+module tb_lab2_led_blink ();
 
 // UUT generics
 	localparam     G_CLK_FREQUENCY = 1e9; // Hz
@@ -27,24 +26,12 @@ module tb_simple_led ();
 	localparam     T_CLK = 1e9 / G_CLK_FREQUENCY; // ns
 	localparam     G_REP_NUM = 2; // number of UUT replicas
 
-// S. answers check
-	logic       i_rstn = '0;
-	logic       led_on = '0;
-	logic [3:0] o_led  = '0;
-
-	always #20 i_rstn = ~i_rstn;
-	always #10 led_on = ~led_on;
-
-	always_comb
-		o_led <= '{0 : (~i_rstn | led_on), default : (~i_rstn | ~led_on)};
-
-/*
 // UUT i/o signals
 	logic                             i_clk = '0;
 	logic [G_REP_NUM-1:0]             i_rst = '0; // reset, active-high
 	logic [G_REP_NUM*G_LED_WIDTH-1:0] o_led = '0;
 
-	always #(T_CLK / 2.0) i_clk = ~i_clk; // simulate clock
+	always #(T_CLK/2) i_clk = ~i_clk; // simulate clock
 
 // simulate reset, active-high
 	initial begin
@@ -54,14 +41,14 @@ module tb_simple_led ();
 	end
 
 // unit under test (UUT): LED blink control
-	simple_led #(
-			.G_CLK_FREQUENCY (G_CLK_FREQUENCY), // Hz
-			.G_BLINK_PERIOD  (G_BLINK_PERIOD ), // s
-			.G_LED_WIDTH     (G_LED_WIDTH    )
-		) uut [G_REP_NUM-1:0] (
-			.i_clk (i_clk),
-			.i_rst (i_rst), // reset, active-high
-			.o_led (o_led)
-		);
-*/
-endmodule : tb_simple_led
+	lab2_led_blink #(
+		.G_CLK_FREQUENCY (G_CLK_FREQUENCY), // Hz
+		.G_BLINK_PERIOD  (G_BLINK_PERIOD ), // s
+		.G_LED_WIDTH     (G_LED_WIDTH    )
+	) uut_inst [G_REP_NUM-1:0] (
+		.i_clk (i_clk),
+		.i_rst (i_rst), // reset, active-high
+		.o_led (o_led)
+	);
+
+endmodule : tb_lab2_led_blink
