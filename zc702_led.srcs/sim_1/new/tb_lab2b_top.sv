@@ -43,7 +43,7 @@ module tb_lab2b_top ();
 		.G_CNT_NUM       (G_CNT_NUM      ), // number of independent counters
 		.G_SEL_WIDTH     (G_SEL_WIDTH    ), // selector bit width
 		.G_BLINK_PERIOD  (G_BLINK_PERIOD )  // s
-	) uut_inst (
+	) u_uut (
 		.i_clk_p (i_clk ),
 		.i_clk_n (~i_clk),
 		.i_sel   (i_sel ), // MUX selector

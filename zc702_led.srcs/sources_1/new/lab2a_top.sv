@@ -50,7 +50,7 @@ module lab2a_top #(
 		.G_CLK_FREQUENCY (G_CLK_FREQUENCY), // Hz
 		.G_BLINK_PERIOD  (G_BLINK_PERIOD ), // s
 		.G_LED_WIDTH     (G_LED_WIDTH    )
-	) led_inst [G_REP_NUM-1:0] (
+	) u_led [G_REP_NUM-1:0] (
 		.i_clk (w_clk_g),
 		.i_rst (i_rst  ), // reset, active-high
 		.o_led (o_led  )

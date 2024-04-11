@@ -47,7 +47,7 @@ module tb_lab1_mux #(
 	lab1_mux #(
 		.G_DAT_WIDTH(G_DAT_WIDTH)
 //		.G_SEL_WIDTH(G_SEL_WIDTH) // value is calculated inside the UUT
-	) uut_inst (
+	) u_uut (
 		.i_dat(i_dat),
 		.i_sel(i_sel),
 		.o_res(o_res)

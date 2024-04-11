@@ -42,22 +42,22 @@ module lab2b_top #(
 
 // LED blinkers
 	genvar i;
-	generate for (i = 0; i < G_CNT_NUM; i+=1)
+	generate for (i = 0; i < G_CNT_NUM; i+=1) begin : gen_led
 		lab2_led_blink #(
 			.G_CLK_FREQUENCY (G_CLK_FREQUENCY  ), // Hz
 			.G_BLINK_PERIOD  (G_BLINK_PERIOD[i]), // s
 			.G_LED_WIDTH     (1                )
-		) led_inst (
+		) u_led (
 			.i_clk (w_clk   ),
 			.i_rst ('0      ), // reset, active-high
 			.o_led (w_led[i])
 		);
-	endgenerate
+	end : gen_led endgenerate
 
 // output MUX
 	lab1_mux #(
 		.G_DAT_WIDTH(G_CNT_NUM)
-	) mux_inst (
+	) u_mux (
 		.i_dat(w_led),
 		.i_sel(i_sel),
 		.o_res(w_res)
