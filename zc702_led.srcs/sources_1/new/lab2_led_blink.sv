@@ -16,9 +16,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module lab2_led_blink #(
-	parameter     G_CLK_FREQUENCY = 200e6, // Hz
-	parameter     G_BLINK_PERIOD  = 1, // s
-	parameter int G_LED_WIDTH     = 4
+	parameter [31:0] G_CLK_FREQUENCY = 200e6, // Hz
+	parameter        G_BLINK_PERIOD  = 1, // s
+	parameter int    G_LED_WIDTH     = 4
 ) (
 	input  wire                    i_clk,
 	input  wire                    i_rst, // reset, active-high

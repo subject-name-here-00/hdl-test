@@ -19,14 +19,18 @@
 module tb_lab2b_top ();
 
 // UUT generics
-	localparam      G_CLK_FREQUENCY = 1e9; // Hz
-	localparam real G_BLINK_PERIOD [0:3] = '{1e-6, 2e-6, 3e-6, 4e-6}; // s
-	localparam int  G_CNT_NUM       = $size(G_BLINK_PERIOD); // number of independent counters
+	localparam int  G_CNT_NUM       = 4; // number of independent counters
+	localparam      G_BLINK_PERIOD  = 1e-3; // s
 	localparam int  G_SEL_WIDTH     = $ceil($clog2(G_CNT_NUM)); // selector bit width
 	localparam int  G_LED_WIDTH     = 8; // bit width of LED "bus"
+//	localparam [31:0] G_CLK_FREQUENCY = 32'd1_000_000; // Hz
+	localparam [G_CNT_NUM-1:0][31:0] G_CLK_FREQUENCY = '{
+		32'd4_000_000, 32'd3_000_000, 32'd2_000_000, 32'd1_000_000
+	}; // Hz
+	localparam G_TEST = $size(G_CLK_FREQUENCY);
 
 // TB constants
-	localparam      T_CLK = 1e9 / G_CLK_FREQUENCY; // ns
+	localparam      T_CLK = 1.0; // ns
 
 // UUT i/o signals
 	logic                   i_clk = '0;
