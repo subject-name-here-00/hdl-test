@@ -16,7 +16,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module tb_lab1_mux #(
-	parameter int G_DAT_WIDTH = 4,
+	parameter int G_DAT_WIDTH = 5,
 	parameter int G_SEL_WIDTH = $ceil($clog2(G_DAT_WIDTH))
 );
 

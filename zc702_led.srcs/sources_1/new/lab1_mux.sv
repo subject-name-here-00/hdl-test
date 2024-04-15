@@ -24,18 +24,23 @@ module lab1_mux #(
 	output logic                   o_res
 );
 
-//// reverse order: direct approach
+// reverse order: direct approach
+	assign o_res = (i_sel < G_DAT_WIDTH) ? i_dat[i_sel] : i_dat[0];
 //	assign o_res = i_dat[G_DAT_WIDTH - i_sel - 1];
 
-// Gray code order: using "if-else-if"
-	always_comb
-		if (i_sel == 0)
-			o_res = i_dat[0];
-		else if (i_sel == 1)
-			o_res = i_dat[1];
-		else if (i_sel == 2)
-			o_res = i_dat[3];
-		else if (i_sel == 3)
-			o_res = i_dat[2];
+//// Gray code order: using "if-else-if"
+//	always_comb
+////		if (i_sel == 0)
+////			o_res = i_dat[0];
+////		else if (i_sel == 1)
+//		if (i_sel == 1)
+//			o_res = i_dat[1];
+//		else if (i_sel == 2)
+//			o_res = i_dat[3];
+//		else if (i_sel == 3)
+//			o_res = i_dat[2];
+//		else
+//			o_res = i_dat[0];
+			
 
 endmodule : lab1_mux
