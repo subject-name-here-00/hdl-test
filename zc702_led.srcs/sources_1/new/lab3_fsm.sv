@@ -11,21 +11,25 @@ module lab3_fsm #(
 );
 
 typedef enum {
-	S0_READY,
-	S1_BUSY
+	S0_READY = 0,
+	S1_BUSY  = 1,
+	S2_PAUSE = 2,
+	S3_DONE  = 3
 } t_fsm_states;
 
-t_fsm_states w_next_state, q_crnt_state;
+t_fsm_states w_next_state, q_crnt_state = S0_READY;
 
-localparam C_CNT_WID = 4;
+localparam C_CNT_WID = 4; // timeout counter bit width
 logic [C_CNT_WID-1:0] q_timeout_cnt = '1;
 
 // FSM next state decode
 	always_comb begin
 		w_next_state = q_crnt_state;
 		case (q_crnt_state)
-			S0_READY: w_next_state = (i_snsr_val == 1)    ? S1_BUSY  : S0_READY;
-			S1_BUSY : w_next_state = (q_timeout_cnt == 0) ? S0_READY : S1_BUSY ;
+			S0_READY : w_next_state = (i_snsr_val == 1)    ? S1_BUSY  : S0_READY;
+			S1_BUSY  : w_next_state = (q_timeout_cnt == 0) ? S2_PAUSE : S1_BUSY ;
+			S2_PAUSE : w_next_state = S3_DONE;
+			default  : w_next_state = S0_READY;
 		endcase
 	end
 
