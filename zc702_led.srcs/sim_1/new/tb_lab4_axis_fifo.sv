@@ -8,14 +8,14 @@ interface if_axis #(parameter int N = 1) ();
 	logic         tvalid;
 	logic         tlast ;
 	logic [W-1:0] tdata ;
-endinterface
+endinterface : if_axis
 
 // AXIS FIFO test
-// v1.0, 17.04.2024
+// v1.1, 17.04.2024
 module tb_lab4_axis_fifo #(
 // UUT generics
 	int G_BYT = 1, // byte width
-	int G_WID = 8 * G_BYT, // bit width
+//	int G_WID = 8 * G_BYT, // bit width
 	
 // TB constants
 	T_CLK = 1.0 // ns
@@ -34,7 +34,7 @@ task axis_init;
 		s_axis.tlast  <= 0;
 		s_axis.tdata  <= 0;
 	end
-endtask
+endtask : axis_init
 
 // send packet to AXIS FIFO
 int i = 0;
@@ -50,11 +50,11 @@ task send_pkt;
 		end
 		#(N*T_CLK);
 	end
-endtask
+endtask : send_pkt
 
 // simulate input signals
 int k = 0;
-initial begin
+initial begin : sim_proc
 // init
 	i_aresetn = 1;
 	axis_init;
@@ -73,7 +73,7 @@ initial begin
 	send_pkt;
 // send 2nd packet
 	send_pkt;
-end
+end : sim_proc
 
 // assign m_axis.tready = 1;
 
@@ -82,8 +82,8 @@ always #(T_CLK/2.0) i_aclk = ~i_aclk;
 
 // unit under test: AXIS FIFO IP
 	axis_data_fifo_0 u_uut (
-		.s_axis_aresetn     (i_aresetn), // input wire s_axis_aresetn
-		.s_axis_aclk        (i_aclk   ), // input wire s_axis_aclk
+		.s_axis_aresetn     (i_aresetn    ), // input wire s_axis_aresetn
+		.s_axis_aclk        (i_aclk       ), // input wire s_axis_aclk
 		
 		.s_axis_tready      (s_axis.tready), // output wire s_axis_tready
 		.s_axis_tvalid      (s_axis.tvalid), // input wire s_axis_tvalid
